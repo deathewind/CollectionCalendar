@@ -12,9 +12,9 @@
 {
     NSInteger integer;
 }
-@property(nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic,strong) UIView *dataView;
-@property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UIView *dataView;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 @end
 
 @implementation CalendarViewController
@@ -59,7 +59,7 @@
     
     integer = 0;
     [self getDataBydata:2];
-    [self.collectionView reloadData];
+    
 
 }
 - (void)getDataBydata:(NSInteger)count{
@@ -70,6 +70,7 @@
         [self.dataArray addObject:calendar];
         integer += 1;
     }
+    [self.collectionView reloadData];
 }
 #pragma mark collectionViewDelegate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -96,6 +97,7 @@
     }
     return nil;
 }
+
 #pragma mark footerViewDelegate
 - (void)loadMoreTime:(UIButton *)button{
     if (self.dataArray.count == 8) {
@@ -103,9 +105,9 @@
         button.enabled = NO;
     }
     [self getDataBydata:2];
-    [self.collectionView reloadData];
     
 }
+
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionViewCell" forIndexPath:indexPath];
     cell.weekend = NO;
@@ -135,7 +137,7 @@
             cell.userInteractionEnabled = YES;
         }
         //上次选择的
-        if (indexPath.row == self.index.row && indexPath.section == self.index.section) {
+        if (self.indexChoose && indexPath.row == self.indexChoose.row && indexPath.section == self.indexChoose.section) {
             cell.selected = YES;
         }
     }
@@ -144,13 +146,13 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.index) {
-        CollectionViewCell *cell = (CollectionViewCell *)[collectionView cellForItemAtIndexPath:self.index];
+    if (self.indexChoose) {
+        CollectionViewCell *cell = (CollectionViewCell *)[collectionView cellForItemAtIndexPath:self.indexChoose];
         cell.selected = NO;
-        self.index = nil;
+        self.indexChoose = nil;
     }
     CalendarConfigure *Configure = [self.dataArray objectAtIndex:indexPath.section];
-    NSString *chooseData = [NSString stringWithFormat:@"%ld-%02ld-%02ld",(long)Configure.dateComponents.year,(long)Configure.dateComponents.month,indexPath.row - Configure.firstDay + 1];
+    NSString *chooseData = [NSString stringWithFormat:@"%ld-%02ld-%02d",(long)Configure.dateComponents.year,(long)Configure.dateComponents.month,indexPath.row - Configure.firstDay + 1];
     // NSLog(@"chooseData = %@ --- %d --- %d --- %@", chooseData , indexPath.section, indexPath.row, indexPath);
     _dateChoose(chooseData, indexPath);
     

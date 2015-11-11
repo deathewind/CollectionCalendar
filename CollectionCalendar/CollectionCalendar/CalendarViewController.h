@@ -17,7 +17,8 @@
 //#define CellWidth 45
 #define CellLine 1
 @interface CalendarViewController : UIViewController
-@property(nonatomic, strong) NSIndexPath *index;
 
-@property(nonatomic,copy) void(^dateChoose)(NSString *dateString, NSIndexPath *path);
+@property(nonatomic, strong) NSIndexPath *indexChoose;
+
+@property(nonatomic, copy)   void(^dateChoose)(NSString *dateString, NSIndexPath *datePath);
 @end

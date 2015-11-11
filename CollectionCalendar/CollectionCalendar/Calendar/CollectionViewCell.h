@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #define RGB(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
 @interface CollectionViewCell : UICollectionViewCell
+
 @property (nonatomic,strong) UILabel* dateLabel;
 // change the background of the current day to  red
 @property (nonatomic,assign) BOOL weekend;
@@ -16,6 +17,7 @@
 
 
 @interface CollectionHeaderView : UICollectionReusableView
+
 @property (nonatomic,strong) UILabel *titleLabel;
 @end
 

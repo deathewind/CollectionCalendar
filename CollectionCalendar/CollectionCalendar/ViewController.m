@@ -10,7 +10,7 @@
 #import "CalendarViewController.h"
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic, strong) UILabel *label; //日期时间标签
-@property(nonatomic, strong) NSIndexPath *indexPa; //记录日期选择的位置
+@property(nonatomic, strong) NSIndexPath *indexPath; //记录日期选择的位置
 @end
 
 @implementation ViewController
@@ -71,13 +71,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    __weak ViewController *weakSelf = self;
+    
     CalendarViewController *calendar = [[CalendarViewController alloc] init];
-    if (_indexPa != nil) {
-        calendar.index = _indexPa;
+    if (weakSelf.indexPath != nil) {
+        calendar.indexChoose = weakSelf.indexPath;
     }
-    calendar.dateChoose = ^(NSString *dateString, NSIndexPath *path){
-        _label.text = dateString;
-        _indexPa = path;
+    calendar.dateChoose = ^(NSString *dateString, NSIndexPath *datePath){
+        weakSelf.label.text = dateString;
+        weakSelf.indexPath = datePath;
     };
     
     [self.navigationController pushViewController:calendar animated:YES];

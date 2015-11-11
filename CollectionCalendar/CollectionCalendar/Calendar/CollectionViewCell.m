@@ -52,6 +52,9 @@
 
 @end
 
+
+
+#pragma mark 头部视图
 @implementation CollectionHeaderView
 
 - (id)initWithFrame:(CGRect)frame{
@@ -67,6 +70,9 @@
     return self;
 }
 @end
+
+
+#pragma mark 底部视图
 @implementation CollectionFooterView
 
 - (id)initWithFrame:(CGRect)frame{
